@@ -8,7 +8,7 @@ http_server:
 
 storages:
   storage_path: "./storage/storage.db"
-  storage_pathPG: "postgres://postgres:1234@localhost:0000/testBaseURL"
+  storage_pathPG: "postgres://postgres:qwerty@localhost:5432/testBaseURL"
 
 aliasLenght: 6
 

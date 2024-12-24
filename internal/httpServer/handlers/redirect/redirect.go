@@ -13,12 +13,12 @@ import (
 	"go.uber.org/zap"
 )
 
-//go:generate go run github.com/vektra/mockery/v2@v2.28.2 --name=URLGetter
-type URLGet interface {
+//go:generate go run github.com/vektra/mockery/v2@v2.50.0 --name=URLGetter
+type URLGetter interface {
 	GetUrl(alias string, ctx context.Context) (string, error)
 }
 
-func GetHand(log *zap.Logger, urlGet URLGet) http.HandlerFunc {
+func GetHand(log *zap.Logger, urlGet URLGetter) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		const op = "handlers.redirect.GetHand"
 

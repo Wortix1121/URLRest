@@ -28,7 +28,7 @@ func Connect() (*Storage, error) {
 	return &Storage{db: db}, nil
 }
 
-func (s Storage) SaveUrl(urlToSave string, alias string, ctx context.Context) (int64, error) {
+func (s Storage) SaveUrl(ctx context.Context, alias string, urlToSave string) (int64, error) {
 	const op = "storage.postgres.rest.SaveUrl"
 
 	query := "INSERT INTO url(url, alias) VALUES($1, $2)"

@@ -1,7 +1,7 @@
 package sqlite
 
 import (
-	"Api/internal/storage"
+	"api/internal/storage"
 	"database/sql"
 	"errors"
 	"fmt"

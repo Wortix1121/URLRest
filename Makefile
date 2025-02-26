@@ -1,2 +1,6 @@
+dockerbuild:
+	docker build -t dev:local .
+
 start:
-	go run cmd/main.go
+	go run main.go
+

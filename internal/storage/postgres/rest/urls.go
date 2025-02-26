@@ -1,9 +1,9 @@
 package rest
 
 import (
-	"Api/internal/config"
-	"Api/internal/storage"
-	"Api/model"
+	"api/internal/config"
+	"api/internal/storage"
+	"api/model"
 	"context"
 	"errors"
 	"fmt"
@@ -67,21 +67,6 @@ func (s Storage) GetUrlall(ctx context.Context) ([]model.UrlModel, error) {
 
 	return pgx.CollectRows(stmt, pgx.RowToStructByNameLax[model.UrlModel])
 }
-
-// func (s Storage) GetUrl(alias string, ctx context.Context) ([]model.UrlModel, error) {
-// 	const op = "storage.postgres.rest.GetUrl"
-
-// 	query := "SELECT url FROM url WHERE alias=$1"
-
-// 	stmt, err := s.db.Query(ctx, query, alias)
-// 	if err != nil {
-// 		return nil, fmt.Errorf("%s: %w", op, err)
-// 	}
-
-// 	defer stmt.Close()
-
-// 	return pgx.CollectRows(stmt, pgx.RowToStructByNameLax[model.UrlModel])
-// }
 
 func (s Storage) GetUrl(alias string, ctx context.Context) (string, error) {
 	const op = "storage.postgres.rest.GetUrl"

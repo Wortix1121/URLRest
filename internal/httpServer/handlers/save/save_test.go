@@ -1,8 +1,8 @@
 package save_test
 
 import (
-	"Api/internal/httpServer/handlers/save"
-	"Api/internal/httpServer/handlers/save/mocks"
+	"api/internal/httpServer/handlers/save"
+	"api/internal/httpServer/handlers/save/mocks"
 	"bytes"
 	"encoding/json"
 	"fmt"

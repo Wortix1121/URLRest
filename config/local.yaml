@@ -1,18 +1,15 @@
 env: "local"
-http_server:  
+http_server:
   address: "localhost:8000"
-  timeout: 4s
-  iddle_timeout: 60s 
-
-
+  timeout: "4s"
+  idle_timeout: "60s"
 
 storages:
   storage_path: "./storage/storage.db"
   storage_pathPG: "postgres://postgres:qwerty@localhost:5432/testBaseURL"
 
-aliasLenght: 6
-
-
 authorization:
   user: "myuser"
   password: "mypass"
+
+aliasLength: 6

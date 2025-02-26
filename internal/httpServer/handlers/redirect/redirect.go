@@ -1,11 +1,13 @@
 package redirect
 
 import (
-	resp "Api/internal/httpServer/apiResp"
-	"Api/internal/storage"
+	resp "api/internal/httpServer/apiResp"
+	"api/internal/storage"
 	"context"
 	"errors"
 	"net/http"
+
+	_ "api/docs"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
@@ -13,11 +15,32 @@ import (
 	"go.uber.org/zap"
 )
 
+type Request struct {
+	Alias string `json:"alias,omitempty"`
+}
+
+type Response struct {
+	resp.Response
+	Alias string `json:"alias,omitempty"`
+}
+
 //go:generate go run github.com/vektra/mockery/v2@v2.50.0 --name=URLGetter
 type URLGetter interface {
 	GetUrl(alias string, ctx context.Context) (string, error)
 }
 
+// GetUrl return list url
+// @Summary Redirect URL
+// @Description Redirect GET
+// @Tag URLRedirect
+// @Accept json
+// @Produce json
+// @Param alias path string true "Alias of the URL to redirect to"
+// @Success 200 {object} Response
+// @Failure 400 {object} resp.Response
+// @Failure 500 {object} resp.Response
+// @Failure 404 {object} resp.Response
+// @Router /{alias} [get]
 func GetHand(log *zap.Logger, urlGet URLGetter) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		const op = "handlers.redirect.GetHand"

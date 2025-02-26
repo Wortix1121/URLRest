@@ -1,14 +1,16 @@
 package save
 
 import (
-	"Api/internal/config"
-	resp "Api/internal/httpServer/apiResp"
-	random "Api/internal/lib/random"
-	"Api/internal/storage"
+	"api/internal/config"
+	resp "api/internal/httpServer/apiResp"
+	random "api/internal/lib/random"
+	"api/internal/storage"
 	"context"
 	"errors"
 	"io"
 	"net/http"
+
+	_ "api/docs"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
@@ -33,6 +35,18 @@ type URLSaver interface {
 	SaveUrl(ctx context.Context, alias string, urlToSave string) (int64, error)
 }
 
+// PostUrl return list url
+// @Summary Create new URL
+// @Description Create new URL
+// @Tag URLPost
+// @Accept json
+// @Produce json
+// @Param input body Request true "URL to save"
+// @Success 200 {object} Response
+// @Failure 400 {object} resp.Response
+// @Failure 500 {object} resp.Response
+// @Failure 404 {object} resp.Response
+// @Router /url/save [post]
 func SaveHand(log *zap.Logger, urlSaver URLSaver) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		const op = "handlers.save.SaveHand"

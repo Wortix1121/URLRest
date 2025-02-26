@@ -1,4 +1,4 @@
-package delete
+package del
 
 import (
 	"context"
@@ -6,8 +6,10 @@ import (
 	"io"
 	"net/http"
 
-	resp "Api/internal/httpServer/apiResp"
-	"Api/internal/storage"
+	resp "api/internal/httpServer/apiResp"
+	"api/internal/storage"
+
+	_ "api/docs"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
@@ -24,10 +26,23 @@ type Request struct {
 	Alias string `json:"alias,omitempty"`
 }
 
+//go:generate go run github.com/vektra/mockery/v2@v2.50.0 --name=URLDeletter
 type URLDeletter interface {
 	DeleteUrl(alias string, ctx context.Context) (int64, error)
 }
 
+// DeleteUrl return list url
+// @Summary Delete URL
+// @Description Delete URL
+// @Tag URLDelete
+// @Accept json
+// @Produce json
+// @Param input body Request true "Alias of the URL to delete"
+// @Success 200 {object} Response
+// @Failure 400 {object} resp.Response
+// @Failure 500 {object} resp.Response
+// @Failure 404 {object} resp.Response
+// @Router /url/urldel/{alias} [delete]
 func DelHand(log *zap.Logger, urlDelletter URLDeletter) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		const op = "handlers.delete.DelHand"

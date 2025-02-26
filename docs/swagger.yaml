@@ -1,0 +1,153 @@
+definitions:
+  apiresp.Response:
+    properties:
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+  del.Request:
+    properties:
+      alias:
+        type: string
+    type: object
+  del.Response:
+    properties:
+      alias:
+        type: string
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+  redirect.Response:
+    properties:
+      alias:
+        type: string
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+  save.Request:
+    properties:
+      alias:
+        type: string
+      url:
+        type: string
+    required:
+    - url
+    type: object
+  save.Response:
+    properties:
+      alias:
+        type: string
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    name: Andrey
+  description: Url REST
+  title: Doc API(URL)
+  version: 0.1.1
+paths:
+  /{alias}:
+    get:
+      consumes:
+      - application/json
+      description: Redirect GET
+      parameters:
+      - description: Alias of the URL to redirect to
+        in: path
+        name: alias
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/redirect.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+      summary: Redirect URL
+  /url/save:
+    post:
+      consumes:
+      - application/json
+      description: Create new URL
+      parameters:
+      - description: URL to save
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/save.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/save.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+      summary: Create new URL
+  /url/urldel/{alias}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete URL
+      parameters:
+      - description: Alias of the URL to delete
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/del.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/del.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiresp.Response'
+      summary: Delete URL
+swagger: "2.0"

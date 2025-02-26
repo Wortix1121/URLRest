@@ -1,9 +1,9 @@
 package tests
 
 import (
-	"Api/internal/httpServer/apiResp/api"
-	"Api/internal/httpServer/handlers/save"
-	"Api/internal/lib/random"
+	"api/internal/httpServer/apiResp/api"
+	"api/internal/httpServer/handlers/save"
+	"api/internal/lib/random"
 	"net/http"
 	"net/url"
 	"path"
